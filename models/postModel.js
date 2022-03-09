@@ -1,11 +1,9 @@
 const Mongoose = require('mongoose');
 const User = require('../models/userModel');
-
 const PostSchema = Mongoose.Schema({
   title: {
     type: String,
     require: true,
-    unique: true,
   },
   content: {
     type: String,
@@ -16,5 +14,4 @@ const PostSchema = Mongoose.Schema({
   },
   createAt: { type: Date, default: new Date() },
 });
-
 module.exports = Mongoose.model('Post', PostSchema);

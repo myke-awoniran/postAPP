@@ -37,13 +37,16 @@ exports.login = async (req, res, next) => {
     if (!email || !password) {
       return next(new AppError('oops!! invalid username or password', 400));
     }
-    const user = await User.findOne({ email }).select('+password');
+    let user = await User.findOne({ email }).select('+password');
+
     if (!user || !(await user.correctPassword(password, user.password))) {
       return next(new AppError('oops!! invalid username or password', 400));
     }
     res.status(200).json({
       status: 'success',
       token: sendToken(user._id),
+      user,
+      totalPosts: user.posts.length,
       userId: user._id,
     });
   } catch (err) {

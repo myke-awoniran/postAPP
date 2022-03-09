@@ -1,18 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const helmet = require('helmet');
+const morgan = require('morgan');
+const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-const multer = require('multer');
+
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
-const errHandler = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
+const errHandler = require('./controllers/errorController');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(helmet());
+app.use(morgan('combined'));
 
 app.get('/', feedRoutes);
 app.use('/feed', feedRoutes);

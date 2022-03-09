@@ -1,8 +1,6 @@
-const fs = require('fs');
-const https = require('https');
+const app = require('./app');
 const Mongoose = require('mongoose');
 const dotenv = require('dotenv').config({ path: './config.env' });
-const app = require('./app');
 
 const port = process.env.PORT;
 
@@ -11,27 +9,17 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-Mongoose.connection.once('open', () => {
-  console.log('Mongo DB connected successfully');
-});
+async function DbConnection(db) {
+  await Mongoose.connect(db).then((res) => {
+    console.log('Database connected successfully');
+  });
+}
 
-Mongoose.connection.on('error', (err) => {
-  console.log(err.message);
-});
-
-const DbConnection = async (db) => {
-  await Mongoose.connect(db);
-};
-DbConnection(DB);
-
-https
-  .createServer(
-    {
-      key: fs.readFileSync('key.pem'),
-      cert: fs.readFileSync('cert.pem'),
-    },
-    app
-  )
-  .listen(port || 8080, () => {
+async function startServer() {
+  await DbConnection(DB);
+  app.listen(port || 8080, () => {
     console.log(`App running on localhost:${port}`);
   });
+}
+
+startServer();

@@ -25,7 +25,6 @@ exports.addPost = async (req, res, next) => {
       newPost,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       status: 'fail',
       message: `fail to create post, ${
@@ -41,7 +40,7 @@ exports.addPost = async (req, res, next) => {
 exports.getPosts = async (req, res, next) => {
   try {
     const posts = await Post.find({}, { __v: 0 })
-      .populate('creator')
+      .populate({ path: 'creator' })
       .limit(req.query.limit)
       .skip((req.query.page - 1) * req.query.limit);
     if (posts.length === 0) {
