@@ -11,17 +11,21 @@ const AppError = require('./utils/AppError');
 const errHandler = require('./controllers/errorController');
 
 const app = express();
-app.enable('trust proxy');
-app.use(cors({ origin: '*' }));
-app.options('*', cors());
+const corsOpts = {
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type'],
+};
+
+app.use(cors(corsOpts));
 
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-app.get('/', cors(), feedRoutes);
-app.use('/feed', cors(), feedRoutes);
-app.use('/auth', cors(), authRoutes);
+app.get('/', feedRoutes);
+app.use('/feed', feedRoutes);
+app.use('/auth', authRoutes);
 
 app.use('*', (req, res, next) => {
   return next(
