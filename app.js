@@ -12,7 +12,7 @@ const errHandler = require('./controllers/errorController');
 
 const app = express();
 
-app.use(cors({ origin: 'https://mikepostapp.herokuapp.com' }));
+app.use(cors({ origin: '*' }));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
