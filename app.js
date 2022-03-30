@@ -1,8 +1,8 @@
-const cors = require('cors');
 const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const feedRoutes = require('./routes/feed');
@@ -12,11 +12,10 @@ const errHandler = require('./controllers/errorController');
 
 const app = express();
 
+app.use(cors({ origin: 'https://mikepostapp.herokuapp.com' }));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
-
-
 
 app.get('/', cors(), feedRoutes);
 app.use('/feed', cors(), feedRoutes);
