@@ -13,14 +13,11 @@ function sendToken(id) {
 exports.signup = async (req, res, next) => {
   try {
     let newUser = await User.create(req.body);
-    res
-      .status(200)
-      .json({
-        status: 'success',
-        newUser,
-        token: sendToken(newUser._id),
-      })
-      .select('-password');
+    res.status(200).json({
+      status: 'success',
+      newUser,
+      token: sendToken(newUser._id),
+    });
   } catch (err) {
     res.status(400).json({
       status: `fail`,
