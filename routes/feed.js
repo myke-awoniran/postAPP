@@ -1,4 +1,5 @@
 const router = require('express').Router();
+
 const feedController = require('../controllers/feedController');
 const authController = require('../controllers/authController');
 
