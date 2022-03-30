@@ -12,15 +12,13 @@ const errHandler = require('./controllers/errorController');
 
 const app = express();
 
-app.use('*', cors());
-
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-app.get('/', feedRoutes);
-app.use('/feed', feedRoutes);
-app.use('/auth', authRoutes);
+app.get('/', cors(), feedRoutes);
+app.use('/feed', cors(), feedRoutes);
+app.use('/auth', cors(), authRoutes);
 
 app.use('*', (req, res, next) => {
   return next(
