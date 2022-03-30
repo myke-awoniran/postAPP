@@ -11,8 +11,10 @@ const AppError = require('./utils/AppError');
 const errHandler = require('./controllers/errorController');
 
 const app = express();
-
+app.enable('trust proxy');
 app.use(cors({ origin: '*' }));
+app.options('*', cors());
+
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
