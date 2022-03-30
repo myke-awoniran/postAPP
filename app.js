@@ -16,6 +16,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
+
+
 app.get('/', cors(), feedRoutes);
 app.use('/feed', cors(), feedRoutes);
 app.use('/auth', cors(), authRoutes);

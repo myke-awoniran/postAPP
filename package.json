@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
-
   },
   "author": "micheal",
   "license": "ISC",
@@ -27,6 +26,5 @@
   },
   "engines": {
     "node": ">=14.0"
-
   }
 }
